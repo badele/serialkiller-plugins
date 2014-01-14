@@ -42,7 +42,7 @@ class teleinfo(skplugins):
 
         tinfo = Teleinfo(self.params['dev'])
         self._results = tinfo.read()
-        self._results ['result'] = self._results ['papp']
+        self._results ['result'] = self._results['PAPP']
 
 
 class Teleinfo:

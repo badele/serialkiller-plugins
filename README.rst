@@ -35,6 +35,6 @@ To install the latest development version from `GitHub <https://github.com/badel
 
 Plugins
 =======
- - Is online (ping)
- - Teleinformation (French electric provider)
- - Sunshine (calc sunrise & sunset)
+- Is online (ping)
+- Teleinformation (French electric provider)
+- Sunshine (calc sunrise & sunset)

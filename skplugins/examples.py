@@ -28,17 +28,17 @@ if isOnlyInstance():
     server = '192.168.253.35'
 
     # Check internet connexion
-    # result = ping(destination="8.8.8.8", count=1)
-    # addValuePlugin(server, 'hp2012:network:online', result)
+    result = ping(destination="8.8.8.8", count=1)
+    addValuePlugin(server, 'hp2012:network:online', result)
 
     # Check teleinfo informations
-    # result = teleinfo(dev='/dev/teleinfo')
-    # addValue(server, 'domsrv:teleinfo:hchc', result.types['HCHC'], result.results['HCHC'])
-    # addValue(server, 'domsrv:teleinfo:hchp', result.types['HCHP'], result.results['HCHP'])
-    # addValue(server, 'domsrv:teleinfo:iinst', result.types['IINST'], result.results['IINST'])
-    # addValue(server, 'domsrv:teleinfo:imax', result.types['IMAX'], result.results['IMAX'])
-    # addValue(server, 'domsrv:teleinfo:isousc', result.types['ISOUSC'], result.results['ISOUSC'])
-    # addValue(server, 'domsrv:teleinfo:papp', result.types['PAPP'], result.results['PAPP'])
+    result = teleinfo(dev='/dev/teleinfo')
+    addValue(server, 'domsrv:teleinfo:hchc', result.types['HCHC'], result.results['HCHC'])
+    addValue(server, 'domsrv:teleinfo:hchp', result.types['HCHP'], result.results['HCHP'])
+    addValue(server, 'domsrv:teleinfo:iinst', result.types['IINST'], result.results['IINST'])
+    addValue(server, 'domsrv:teleinfo:imax', result.types['IMAX'], result.results['IMAX'])
+    addValue(server, 'domsrv:teleinfo:isousc', result.types['ISOUSC'], result.results['ISOUSC'])
+    addValue(server, 'domsrv:teleinfo:papp', result.types['PAPP'], result.results['PAPP'])
 
     # Check night
     result = sunshine(latitude="43:36:43", longitude="3:53:38", elevation=8)
