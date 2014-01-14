@@ -23,6 +23,7 @@ class teleinfo(skplugins):
             'IMAX': 'byte',
             'ISOUSC': 'byte',
             'PAPP': 'ushort',
+            'result': 'ushort',
         }
         self.check()
 
@@ -41,6 +42,7 @@ class teleinfo(skplugins):
 
         tinfo = Teleinfo(self.params['dev'])
         self._results = tinfo.read()
+        self._results ['result'] = self._results ['papp']
 
 
 class Teleinfo:
