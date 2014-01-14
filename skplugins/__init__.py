@@ -69,13 +69,11 @@ def addEventPlugin(server, sensorid, plugin):
 
 def addValue(server, sensorid, type, value):
     "Add value from value"""
-    url = 'http://%(server)s/addValue/%(sensorid)s/%(type)s/%(value)s' % locals()
-    print url
+    url = 'http://%(server)s/addValue/%(sensorid)s/%(type)s/value=%(value)s' % locals()
     requests.get(url)
 
 
 def addEvent(server, sensorid, type, value):
     "Add event from value"""
-    url = 'http://%(server)s/addValue/%(sensorid)s/%(type)s/%(value)s' % locals()
-    print url
+    url = 'http://%(server)s/addValue/%(sensorid)s/%(type)s/value=%(value)s' % locals()
     requests.get(url)
