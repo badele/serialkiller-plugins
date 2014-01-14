@@ -32,3 +32,9 @@ To install the latest development version from `GitHub <https://github.com/badel
 .. code-block:: console
 
     $ pip install git+git://github.com/badele/serialkiller-plugins.git
+
+Plugins
+=======
+ - Is online (ping)
+ - Teleinformation (French electric provider)
+ - Sunshine (calc sunrise & sunset)
