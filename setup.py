@@ -37,6 +37,13 @@ Remove unsupported github tags:
     return content
 
 
+def required(filename):
+    with open(filename) as f:
+        packages = f.read().splitlines()
+
+    return packages
+
+
 setup(
     name="serialkiller-plugins",
     version="0.0.1",
@@ -46,7 +53,7 @@ setup(
     author_email="Bruno Adelé <bruno@adele.im>",
     url="https://github.com/badele/serialkiller-plugins",
     license="GPL",
-    install_requires=[],
+    install_requires=required('requirements/base.txt'),
     setup_requires=[],
     tests_require=[
         'pep8',
