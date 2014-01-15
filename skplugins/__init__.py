@@ -6,6 +6,7 @@ __copyright__ = 'Copyright (C) 2013 Bruno Adelé'
 __description__ = """A plugins for serialkiller project"""
 __license__ = 'GPL'
 __version__ = '0.0.1'
+__apiversion__ = '1.0'
 
 import requests
 
@@ -69,11 +70,22 @@ def addEventPlugin(server, sensorid, plugin):
 
 def addValue(server, sensorid, type, value):
     "Add value from value"""
-    url = 'http://%(server)s/addValue/%(sensorid)s/%(type)s/value=%(value)s' % locals()
-    requests.get(url)
+    url = 'addValue/%(sensorid)s/%(type)s/value=%(value)s' % locals()
+    sendRequest(server, url)
 
 
 def addEvent(server, sensorid, type, value):
     "Add event from value"""
-    url = 'http://%(server)s/addValue/%(sensorid)s/%(type)s/value=%(value)s' % locals()
-    requests.get(url)
+    url = 'addValue/%(sensorid)s/%(type)s/value=%(value)s' % locals()
+    sendRequest(server, url)
+
+
+def sendRequest(server, request):
+    apiversion = __apiversion__
+    try:
+        apiversion = __apiversion__
+        url = "http://%(server)s/api/%(apiversion)s/%(request)s" % locals()
+        requests.get(url)
+        #print url
+    except:
+        pass
