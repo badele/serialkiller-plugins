@@ -1,4 +1,5 @@
 requests==2.2.0
+python-daemon==1.6
 
 # for network/ping.py
 # pyping==0.0.4
