@@ -91,6 +91,25 @@ Script example
             # Check my computer
             result = ping(destination="192.168.1.37", count=1)
             addValuePlugin(server, 'domsrv:hp2012:online', result)
+            
+            # Check teleinfo informations
+            result = teleinfo(dev='/dev/teleinfo')
+
+            if 'HCHC' in result.results:
+                addValue(server, 'domsrv:teleinfo:hchc', result.types['HCHC'], result.results['HCHC'])
+
+            if 'HCHP' in result.results:
+                addValue(server, 'domsrv:teleinfo:hchp', result.types['HCHP'], result.results['HCHP'])
+
+            if 'IINST' in result.results:
+                addValue(server, 'domsrv:teleinfo:iinst', result.types['IINST'], result.results['IINST'])
+
+            if 'ISOUSC' in result.results:
+                addValue(server, 'domsrv:teleinfo:isousc', result.types['ISOUSC'], result.results['ISOUSC'])
+
+            if 'PAPP' in result.results:
+                addValue(server, 'domsrv:teleinfo:papp', result.types['PAPP'], result.results['PAPP'])
+   
 
             #Sleep
             time.sleep(5)
