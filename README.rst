@@ -55,7 +55,7 @@ Supervisor install.
     # Archlinux
     $ pacman -S supervisor
 
-The check sensors supervisor configuration  ``/etc/supervisor.d/check_sensors.ini``.
+The check sensors supervisor configuration.
 
 .. code-block:: console
 
