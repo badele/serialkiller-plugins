@@ -39,82 +39,98 @@ Plugins
 - Teleinformation (French electric provider)
 - Sunshine (calc sunrise & sunset)
 
+
 Script example
 ==============
 
+For checking the sensors periodically, i use the supervisor application, it can restart the application if it crashes.
+
+Supervisor install.
+
+.. code-block:: console
+
+    # Debian
+    $ apt-get install supervisor
+
+    # Archlinux
+    $ pacman -S supervisor
+
+The check sensors supervisor configuration  ``/etc/supervisor.d/check_sensors.ini``.
+
+.. code-block:: console
+
+    [program:check_sensors]
+    command=~/.virtualenvs/serialkiller/bin/python /usr/local/bin/check_sensors.py
+    user=badele
+    autostart=true
+    autorestart=true
+
+
+Active and start supervisor.
+
+.. code-block:: console
+
+    # Debian
+    $ /etc/init.d/supervisor start
+
+    # Archlinux
+    $ systemctl enable supvervisord
+    $ systemctl start supvervisord
+
+    # Show status
+    $ supervisorctl status
+    check_sensors                    RUNNING    pid 1306, uptime 23:48:04
+
+``/usr/local/bin/check_sensors.py`` script example.
+
 .. code-block:: python
 
-   #!/usr/bin/env python
-   # -*- coding: utf-8 -*-
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*-
 
-   __authors__ = 'Bruno Adelé <bruno@adele.im>'
-   __copyright__ = 'Copyright (C) 2013 Bruno Adelé'
-   __description__ = """A plugins for serialkiller project"""
-   __license__ = 'GPL'
-   __version__ = '0.0.1'
+    import os
+    import time
 
+    from skplugins import addValuePlugin, addEventPlugin, addValue, addEvent
+    from skplugins.network.ping import ping
+    from skplugins.weather.sunshine import sunshine
 
-   import os
-   from daemon import runner
-   import time
+    server = '192.168.1.1'
+    while True:
 
+        # Check sunshine
+        result = sunshine(latitude="43:36:43", longitude="3:53:38", elevation=8)
+        addValuePlugin(server, 'city:weather:sunshine', result)
 
-   from skplugins import addValuePlugin, addEventPlugin, addValue, addEvent
-   from skplugins.network.ping import ping
-   from skplugins.weather.sunshine import sunshine
+        # Check internet connexion
+        result = ping(destination="8.8.8.8", count=1)
+        addValuePlugin(server, 'livingroom:internet:available', result)
 
-   class App():
-      def __init__(self):
-         self.stdin_path = '/dev/null'
-         self.stdout_path = '/dev/tty'
-         self.stderr_path = '/dev/tty'
-         self.pidfile_path =  '/tmp/foo.pid'
-         self.pidfile_timeout = 5
+        # Check webcam
+        result = ping(destination="192.168.1.2", count=1)
+        addValuePlugin(server, 'livingroom:axis:online', result)
 
-      def run(self):
-         server = '192.168.1.35'
+        # Check my computer
+        result = ping(destination="192.168.1.3", count=1)
+        addValuePlugin(server, 'bedroom:hp2012:online', result)
 
-         while True:
+        # Check teleinfo informations
+        result = teleinfo(dev='/dev/teleinfo')
 
-            # Check sunshine
-            result = sunshine(latitude="43:36:43", longitude="3:53:38", elevation=8)
-            addValuePlugin(server, 'domsrv:weather:sunshine', result)
+        if 'HCHC' in result.results:
+            addValue(server, 'washroom:teleinfo:hchc', result.types['HCHC'], result.results['HCHC'])
 
-            # Check internet connexion
-            result = ping(destination="8.8.8.8", count=1)
-            addValuePlugin(server, 'domsrv:internet:available', result)
+        if 'HCHP' in result.results:
+            addValue(server, 'washroom:teleinfo:hchp', result.types['HCHP'], result.results['HCHP'])
 
-            # Check webcam
-            result = ping(destination="192.168.1.21", count=1)
-            addValuePlugin(server, 'axis:network:online', result)
+        if 'IINST' in result.results:
+            addValue(server, 'washroom:teleinfo:iinst', result.types['IINST'], result.results['IINST'])
 
-            # Check my computer
-            result = ping(destination="192.168.1.37", count=1)
-            addValuePlugin(server, 'domsrv:hp2012:online', result)
-            
-            # Check teleinfo informations
-            result = teleinfo(dev='/dev/teleinfo')
+        if 'ISOUSC' in result.results:
+            addValue(server, 'washroom:teleinfo:isousc', result.types['ISOUSC'], result.results['ISOUSC'])
 
-            if 'HCHC' in result.results:
-                addValue(server, 'domsrv:teleinfo:hchc', result.types['HCHC'], result.results['HCHC'])
+        if 'PAPP' in result.results:
+            addValue(server, 'washroom:teleinfo:papp', result.types['PAPP'], result.results['PAPP'])
 
-            if 'HCHP' in result.results:
-                addValue(server, 'domsrv:teleinfo:hchp', result.types['HCHP'], result.results['HCHP'])
-
-            if 'IINST' in result.results:
-                addValue(server, 'domsrv:teleinfo:iinst', result.types['IINST'], result.results['IINST'])
-
-            if 'ISOUSC' in result.results:
-                addValue(server, 'domsrv:teleinfo:isousc', result.types['ISOUSC'], result.results['ISOUSC'])
-
-            if 'PAPP' in result.results:
-                addValue(server, 'domsrv:teleinfo:papp', result.types['PAPP'], result.results['PAPP'])
-   
-
-            #Sleep
-            time.sleep(5)
-
-   # Launch in daemon mode
-   app = App()
-   daemon_runner = runner.DaemonRunner(app)
-   daemon_runner.do_action()
+        #Sleep
+        time.sleep(5)
