@@ -54,6 +54,7 @@ class skplugins(object):
 
     def check(self):
         """Check Sensor"""
+        # noinspection PyProtectedMember
         mess = "%s.%s" % (self.__class__, sys._getframe().f_code.co_name)
         raise NotImplementedError(mess)
 
