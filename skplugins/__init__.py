@@ -8,7 +8,12 @@ __license__ = 'GPL'
 __version__ = '0.0.1'
 __apiversion__ = '1.0'
 
+import os
+import sys
+import json
 import requests
+import time
+
 
 class skplugins(object):
     """Generic Class for type"""
@@ -41,6 +46,11 @@ class skplugins(object):
         """Get Value"""
         return self._results
 
+    @results.setter
+    def results(self, value):
+        """Set Value"""
+        self._results = value
+
     @property
     def type(self):
         if 'result' not in self._types:
@@ -58,6 +68,49 @@ class skplugins(object):
         mess = "%s.%s" % (self.__class__, sys._getframe().f_code.co_name)
         raise NotImplementedError(mess)
 
+    def getUrl(self, url):
+        return requests.get(url)
+
+    def getcachedresults(self):
+        if 'cachefile' not in self.params:
+            raise Exception("Not cachefile set")
+
+        filename = self.params['cachefile']
+        if 'cachetime' in self.params:
+            cachetime = self.params['cachetime']
+        else:
+            cachetime = 3600
+
+        if not os.path.exists(filename):
+            # Cache not exists
+            return None
+
+        # Check if i use the cache results
+        mtime = os.stat(filename).st_mtime
+        now = time.time()
+        if (now - mtime) > cachetime:
+            # Cache is old
+            return None
+
+        # Use the cache file
+        lines = open(filename).read()
+        results = json.loads(lines)
+
+        return results
+
+    def setcacheresults(self):
+        if 'cachefile' not in self.params:
+            raise Exception("Not cachefile set")
+
+        filename = self.params['cachefile']
+        with open(filename, 'w') as f:
+            jsontext = json.dumps(
+                self.results, sort_keys=True,
+                indent=4, separators=(',', ': ')
+            )
+            f.write(jsontext)
+            f.close()
+
 
 def addValuePlugin(server, sensorid, plugin):
     "Add value from plugin"""
@@ -69,15 +122,15 @@ def addEventPlugin(server, sensorid, plugin):
     addEvent(server, sensorid, plugin.type, plugin.result)
 
 
-def addValue(server, sensorid, type, value):
+def addValue(server, sensorid, ptype, value):
     "Add value from value"""
-    url = 'addValue/%(sensorid)s/%(type)s/value=%(value)s' % locals()
+    url = 'addValue/%(sensorid)s/%(ptype)s/value=%(value)s' % locals()
     sendRequest(server, url)
 
 
-def addEvent(server, sensorid, type, value):
+def addEvent(server, sensorid, ptype, value):
     "Add event from value"""
-    url = 'addValue/%(sensorid)s/%(type)s/value=%(value)s' % locals()
+    url = 'addValue/%(sensorid)s/%(ptype)s/value=%(value)s' % locals()
     sendRequest(server, url)
 
 
