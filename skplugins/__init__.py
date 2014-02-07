@@ -79,7 +79,7 @@ class skplugins(object):
         if 'cachetime' in self.params:
             cachetime = self.params['cachetime']
         else:
-            cachetime = 3600
+            cachetime = 1800
 
         if not os.path.exists(filename):
             # Cache not exists
