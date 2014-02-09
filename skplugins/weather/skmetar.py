@@ -5,7 +5,7 @@ __authors__ = 'Bruno Adelé <bruno@adele.im>'
 __copyright__ = 'Copyright (C) 2013 Bruno Adelé'
 __description__ = """A plugins for serialkiller project"""
 __license__ = 'GPL'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 # Require python-metar library
 # git clone https://github.com/tomp/python-metar.git
@@ -28,7 +28,8 @@ class skmetar(skplugins):
             'pressure': 'skfloat',
             'wind_speed': 'skfloat',
             'humidity': 'skfloat',
-            'wind_chill': 'skfloat'
+            'wind_chill': 'skfloat',
+            'visibility': 'ushort'
         }
         self.check()
 
@@ -83,6 +84,11 @@ class skmetar(skplugins):
         # Get pressure
         if decode.press:
             self.results['pressure'] = decode.press.value()
+
+        # Visibility
+        print decode.vis
+        if decode.vis:
+            self.results['visibility'] = int(decode.vis.value())
 
         # Get wind speed
         if decode.wind_speed:
