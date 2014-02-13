@@ -13,7 +13,7 @@ import sys
 import json
 import requests
 import time
-
+from collections import defaultdict
 
 class skplugins(object):
     """Generic Class for type"""
@@ -21,7 +21,7 @@ class skplugins(object):
 
         # Set parameters
         self._params = kwargs
-        self._results = dict()
+        self._results = defaultdict(lambda: None)
         self._types = dict()
 
     @property
@@ -124,14 +124,16 @@ def addEventPlugin(server, sensorid, plugin):
 
 def addValue(server, sensorid, ptype, value):
     "Add value from value"""
-    url = 'addValue/%(sensorid)s/%(ptype)s/value=%(value)s' % locals()
-    sendRequest(server, url)
+    if value is not None:
+        url = 'addValue/%(sensorid)s/%(ptype)s/value=%(value)s' % locals()
+        sendRequest(server, url)
 
 
 def addEvent(server, sensorid, ptype, value):
     "Add event from value"""
-    url = 'addValue/%(sensorid)s/%(ptype)s/value=%(value)s' % locals()
-    sendRequest(server, url)
+    if value is not None:
+        url = 'addValue/%(sensorid)s/%(ptype)s/value=%(value)s' % locals()
+        sendRequest(server, url)
 
 
 def sendRequest(server, request):

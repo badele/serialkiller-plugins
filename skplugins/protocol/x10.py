@@ -15,6 +15,7 @@ __version__ = '0.0.2'
 import re
 import os
 import socket
+from collections import defaultdict
 
 from skplugins import skplugins
 
@@ -57,7 +58,7 @@ class x10(skplugins):
 
         s.close()
 
-        self.results['result'] =dict()
+        self.results['result'] = defaultdict(lambda: None)
         results = re.findall(r'House ([A-O]): ([0-9A-F]=.*)', out)
         if results:
             for r in results:
