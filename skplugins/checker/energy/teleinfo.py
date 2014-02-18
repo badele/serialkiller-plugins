@@ -14,7 +14,7 @@ from skplugins import skplugins
 import serial
 
 
-class teleinfo(skplugins):
+class teleinfo(checker):
     """Get teleinfo information"""
     def __init__(self, **kwargs):
         super(teleinfo, self).__init__(**kwargs)

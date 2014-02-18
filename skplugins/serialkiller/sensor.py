@@ -14,10 +14,10 @@ __version__ = '0.0.2'
 
 import re
 import json
-from skplugins import skplugins
+from skplugins.checker import checker
 
 
-class sensor(skplugins):
+class sensor(checker):
     """Check the serialkiller server information"""
     def __init__(self, **kwargs):
         super(sensor, self).__init__(**kwargs)

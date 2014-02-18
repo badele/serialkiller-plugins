@@ -12,7 +12,7 @@ from subprocess import *
 from skplugins import skplugins
 
 
-class process(skplugins):
+class process(checker):
     """Check if process exist"""
     def __init__(self, **kwargs):
         super(process, self).__init__(**kwargs)

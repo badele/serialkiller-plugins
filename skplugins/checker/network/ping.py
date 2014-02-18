@@ -12,7 +12,7 @@ from skplugins import skplugins
 import pyping
 
 
-class ping(skplugins):
+class ping(checker):
     """Check if host reply a ICMP request"""
     def __init__(self, **kwargs):
         super(ping, self).__init__(**kwargs)

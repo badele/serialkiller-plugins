@@ -6,7 +6,7 @@ import ephem
 from skplugins import skplugins
 
 
-class sunshine(skplugins):
+class sunshine(checker):
     """Check if day or night"""
     def __init__(self, **kwargs):
         super(sunshine, self).__init__(**kwargs)

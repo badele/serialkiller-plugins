@@ -18,7 +18,7 @@ from skplugins import skplugins
 from metar import Metar
 
 
-class skmetar(skplugins):
+class skmetar(checker):
     """Check the metar information"""
     def __init__(self, **kwargs):
         super(skmetar, self).__init__(**kwargs)

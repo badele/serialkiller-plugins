@@ -16,7 +16,7 @@ from collections import defaultdict
 
 from skplugins import skplugins
 
-class x10(skplugins):
+class x10(checker):
     """Check the x10 status"""
     def __init__(self, **kwargs):
         super(x10, self).__init__(**kwargs)

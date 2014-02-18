@@ -11,7 +11,7 @@ import re
 from skplugins import skplugins
 
 
-class vigimeteo(skplugins):
+class vigimeteo(checker):
     """Check the vigilance of meteofrance.fr"""
     def __init__(self, **kwargs):
         super(vigimeteo, self).__init__(**kwargs)
