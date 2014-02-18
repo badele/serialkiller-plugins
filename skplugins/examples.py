@@ -7,16 +7,14 @@ __description__ = """A plugins for serialkiller project"""
 __license__ = 'GPL'
 __version__ = '0.0.2'
 
-
-import os
-from daemon import runner
 import time
 
+from daemon import runner
 
-from skplugins import addValuePlugin, addEventPlugin, addValue, addEvent
+from skplugins import addValuePlugin
 from skplugins.network.ping import ping
-from skplugins.energy.teleinfo import teleinfo
 from skplugins.weather.sunshine import sunshine
+
 
 class App():
     def __init__(self):

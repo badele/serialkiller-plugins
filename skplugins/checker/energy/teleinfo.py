@@ -29,15 +29,6 @@ class teleinfo(skplugins):
         }
         self.check()
 
-    @property
-    def params(self):
-        """Get Value"""
-        return self._params
-
-    @params.setter
-    def params(self, value):
-        self._params = value
-
     def check(self):
         if 'dev' not in self.params:
             self.params['dev'] = '/dev/teleinfo'

@@ -15,7 +15,7 @@ import requests
 import time
 from collections import defaultdict
 
-class skplugins(object):
+class checker(object):
     """Generic Class for type"""
     def __init__(self, **kwargs):
 

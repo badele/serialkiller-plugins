@@ -21,15 +21,6 @@ class ping(skplugins):
         }
         self.check()
 
-    @property
-    def params(self):
-        """Get Value"""
-        return self._params
-
-    @params.setter
-    def params(self, value):
-        self._params = value
-
     def check(self):
         if 'timeout' not in self.params:
             self.params['timeout'] = 5000

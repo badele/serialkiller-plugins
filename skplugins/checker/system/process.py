@@ -21,15 +21,6 @@ class process(skplugins):
         }
         self.check()
 
-    @property
-    def params(self):
-        """Get Value"""
-        return self._params
-
-    @params.setter
-    def params(self, value):
-        self._params = value
-
     def getProcessIDs(self, processname):
         cmd = 'pidof "%s"' % processname
 

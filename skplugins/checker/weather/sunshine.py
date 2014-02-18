@@ -15,15 +15,6 @@ class sunshine(skplugins):
         }
         self.check()
 
-    @property
-    def params(self):
-        """Get Value"""
-        return self._params
-
-    @params.setter
-    def params(self, value):
-        self._params = value
-
     def check(self):
         if 'datetime' not in self.params:
             self.params['datetime'] = ephem.now()

@@ -7,10 +7,7 @@ __description__ = """A plugins for serialkiller project"""
 __license__ = 'GPL'
 __version__ = '0.0.2'
 
-# Require python-metar library
-# git clone https://github.com/tomp/python-metar.git
-# cd python-metar
-# python setup.py install
+# On the server require mochad application
 
 import re
 import os
@@ -27,15 +24,6 @@ class x10(skplugins):
             'result': None,
         }
         self.check()
-
-    @property
-    def params(self):
-        """Get Value"""
-        return self._params
-
-    @params.setter
-    def params(self, value):
-        self._params = value
 
     def check(self):
 

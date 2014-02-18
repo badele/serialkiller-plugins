@@ -20,15 +20,6 @@ class vigimeteo(skplugins):
         }
         self.check()
 
-    @property
-    def params(self):
-        """Get Value"""
-        return self._params
-
-    @params.setter
-    def params(self, value):
-        self._params = value
-
     def checkVigimeteo(self, dep):
         results = self.getcachedresults()
 
