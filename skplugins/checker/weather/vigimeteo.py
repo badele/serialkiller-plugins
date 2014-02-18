@@ -8,7 +8,7 @@ __license__ = 'GPL'
 __version__ = '0.0.2'
 
 import re
-from skplugins import skplugins
+from skplugins.checker import checker
 
 
 class vigimeteo(checker):

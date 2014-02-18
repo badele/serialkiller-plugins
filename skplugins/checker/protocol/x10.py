@@ -14,7 +14,7 @@ import os
 import socket
 from collections import defaultdict
 
-from skplugins import skplugins
+from skplugins.checker import checker
 
 class x10(checker):
     """Check the x10 status"""

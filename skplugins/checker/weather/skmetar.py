@@ -13,7 +13,7 @@ __version__ = '0.0.2'
 # python setup.py install
 
 import re
-from skplugins import skplugins
+from skplugins.checker import checker
 
 from metar import Metar
 

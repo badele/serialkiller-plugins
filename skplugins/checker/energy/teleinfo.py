@@ -9,7 +9,7 @@ __version__ = '0.0.2'
 
 # pip install pyserial
 
-from skplugins import skplugins
+from skplugins.checker import checker
 
 import serial
 

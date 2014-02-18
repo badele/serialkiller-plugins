@@ -3,7 +3,7 @@
 
 import ephem
 
-from skplugins import skplugins
+from skplugins.checker import checker
 
 
 class sunshine(checker):

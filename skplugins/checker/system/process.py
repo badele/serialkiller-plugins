@@ -9,7 +9,7 @@ __version__ = '0.0.2'
 
 from subprocess import *
 
-from skplugins import skplugins
+from skplugins.checker import checker
 
 
 class process(checker):

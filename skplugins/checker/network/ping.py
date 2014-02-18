@@ -7,7 +7,7 @@ __description__ = """A plugins for serialkiller project"""
 __license__ = 'GPL'
 __version__ = '0.0.2'
 
-from skplugins import skplugins
+from skplugins.checker import checker
 
 import pyping
 
