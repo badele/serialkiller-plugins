@@ -79,7 +79,7 @@ class checker(object):
         if 'cachetime' in self.params:
             cachetime = self.params['cachetime']
         else:
-            cachetime = 1800
+            cachetime = 1200
 
         if not os.path.exists(filename):
             # Cache not exists
