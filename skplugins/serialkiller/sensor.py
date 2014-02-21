@@ -32,7 +32,7 @@ class sensor(checker):
             return
 
         # Get Metar information
-        url = "http://%s/api/1.0/last/%s" % (self.params['server'], self.params['sensorid'])
+        url = "http://%s/api/1.0/sensor/%s/last" % (self.params['server'], self.params['sensorid'])
         r = self.getUrl(url)
         if r.status_code != 200:
             return None
