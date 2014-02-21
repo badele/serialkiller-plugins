@@ -125,14 +125,14 @@ def addEventPlugin(server, sensorid, plugin):
 def addValue(server, sensorid, ptype, value):
     "Add value from value"""
     if value is not None:
-        url = 'addValue/%(sensorid)s/%(ptype)s/value=%(value)s' % locals()
+        url = 'sensor/%(sensorid)s/addValue/%(ptype)s/value=%(value)s' % locals()
         sendRequest(server, url)
 
 
 def addEvent(server, sensorid, ptype, value):
     "Add event from value"""
     if value is not None:
-        url = 'addValue/%(sensorid)s/%(ptype)s/value=%(value)s' % locals()
+        url = 'sensor/%(sensorid)s/addEvent/%(ptype)s/value=%(value)s' % locals()
         sendRequest(server, url)
 
 
