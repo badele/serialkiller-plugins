@@ -15,6 +15,7 @@ import requests
 import time
 from collections import defaultdict
 
+
 class checker(object):
     """Generic Class for type"""
     def __init__(self, **kwargs):

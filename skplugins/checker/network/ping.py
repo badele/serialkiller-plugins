@@ -23,7 +23,7 @@ class ping(checker):
 
     def check(self):
         if 'timeout' not in self.params:
-            self.params['timeout'] = 5000
+            self.params['timeout'] = 500
         if 'count' not in self.params:
             self.params['count'] = 2
 
@@ -44,3 +44,6 @@ class ping(checker):
             'destination_ip': r.destination_ip,
             'result': 255 - (r.ret_code * 255),
         }
+
+    def __setattr__(self, name, value):
+        return super(ping, self).__setattr__(name, value)
