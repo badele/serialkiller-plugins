@@ -17,6 +17,8 @@ import json
 from skplugins.checker import checker
 
 
+
+
 class sensor(checker):
     """Check the serialkiller server information"""
     def __init__(self, **kwargs):
@@ -31,7 +33,7 @@ class sensor(checker):
             self.results['result'] = None
             return
 
-        # Get Metar information
+        # Get Sensor informations
         url = "http://%s/api/1.0/sensor/%s/last" % (self.params['server'], self.params['sensorid'])
         r = self.getUrl(url)
         if r.status_code != 200:

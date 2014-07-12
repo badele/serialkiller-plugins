@@ -37,10 +37,11 @@ class checker(object):
     @property
     def result(self):
         """Get Value"""
-        if 'result' not in self.results:
-            return None
+        if  self._default:
+            mess = "%s.%s" % (self.__class__, sys._getframe().f_code.co_name)
+            raise NotImplementedError(mess)
         else:
-            return self.results['result']
+            return self.results[self._default]
 
     @property
     def results(self):
@@ -51,6 +52,13 @@ class checker(object):
     def results(self, value):
         """Set Value"""
         self._results = value
+
+    @property
+    def default(self):
+        if 'default' not in self._results:
+            return None
+
+        return self._results['default']
 
     @property
     def type(self):
