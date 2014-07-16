@@ -40,11 +40,11 @@ class x10(daemon):
 
             out = ''
             while 1:
-                data = s.recv(1024)
+                data = s.recv(128)
+                out += data
+
                 if data == '':
                     break
-
-                out += data
 
             s.close()
             return out
