@@ -46,7 +46,7 @@ class x10(checker):
 
         s.close()
 
-        self.results['result'] = defaultdict(lambda: None)
+        #self.results['result'] = defaultdict(lambda: None)
         results = re.findall(r'House ([A-O]): ([0-9A-F]=.*)', out)
         if results:
             for r in results:
@@ -55,4 +55,4 @@ class x10(checker):
 
                 for x10sensor in x10sensors:
                     (sensorid, value) = x10sensor.split('=')
-                    self.results['result']["%s%s" % (x10house, sensorid)] = value
+                    self.results["%s%s" % (x10house, sensorid)] = value

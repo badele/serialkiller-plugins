@@ -33,20 +33,33 @@ class x10(daemon):
                 self.results['result'] = None
                 return
 
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((self.params['mochad'], 1099))
-            s.sendall("%s\n" % command)
-            s.shutdown(socket.SHUT_WR)
+            s = None
+            try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s.connect((self.params['mochad'], 1099))
+                s.sendall("%s\n" % command)
+                s.shutdown(socket.SHUT_WR)
+            except socket.error as msg:
+                self.log.exception('Init socket error: %s', msg)
 
             out = ''
-            while 1:
-                data = s.recv(128)
-                out += data
 
-                if data == '':
-                    break
+            if s:
+                while 1:
 
-            s.close()
+                    data = ''
+                    try:
+                        data = s.recv(128)
+                    except socket.error as msg:
+                        self.log.exception('Init socket read error: %s', msg)
+
+                    if data != '':
+                        out += data
+
+                    if data == '':
+                        break
+
+                s.close()
             return out
 
     def checkStatus(self):
@@ -60,7 +73,7 @@ class x10(daemon):
 
                     for x10sensor in x10sensors:
                         (sensorid, value) = x10sensor.split('=')
-                        self.results['result']["%s%s" % (x10house, sensorid)] = int(value)
+                        self.results["%s%s" % (x10house, sensorid)] = int(value)
 
     def power(self,unit, value):
             self.executeMochadCommand('pl %s %s' % (unit, value))
@@ -70,6 +83,13 @@ class x10(daemon):
         # Loop mochad content
         while not self._stopevent.isSet():
 
-            self.checkStatus()
+            try:
+                self.checkStatus()
+                #raise Exception('toto')
+            except Exception, err:
+                self.log.exception('Error in main run function: %s', err)
+                self.stop()
+                raise
+
 
             self._stopevent.wait(self.params['threadwait'])
