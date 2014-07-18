@@ -38,15 +38,27 @@ class skmetar(checker):
             self.results['result'] = None
             return
 
-        results = self.getcachedresults()
+        results = None
+        try:
+            results = self.getcachedresults()
+        except:
+            self.log.exception('error in getcachedresults function')
+            raise
+
         if results:
             # Result in the cache
             self.results = results
             return
 
         # Get Metar information
-        r = self.getUrl("http://weather.noaa.gov/pub/data/observations/metar/stations/%s.TXT" % self.params['station'])
-        if r.status_code != 200:
+        r = None
+        try:
+            r = self.getUrl("http://weather.noaa.gov/pub/data/observations/metar/stations/%s.TXT" % self.params['station'])
+        except:
+            self.log.exception('error in getUrl function')
+            raise
+
+        if r is None or r.status_code != 200:
             return None
 
         # Extract only Metar informations

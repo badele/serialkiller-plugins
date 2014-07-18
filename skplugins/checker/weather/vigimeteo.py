@@ -21,15 +21,27 @@ class vigimeteo(checker):
         self.check()
 
     def checkVigimeteo(self, dep):
-        results = self.getcachedresults()
+        results = None
+
+        try:
+            results = self.getcachedresults()
+        except:
+            self.log.exception('error in getcachedresults function')
+            raise
+
 
         # Result not cached
         if results:
             self.results = results
         else:
-            r = self.getUrl("http://vigilance.meteofrance.com/data/NXFR34_LFPW_.xml")
+            r = None
+            try:
+                r = self.getUrl("http://vigilance.meteofrance.com/data/NXFR34_LFPW_.xml")
+            except:
+                self.log.exception('error in getUrl function')
+                raise
 
-            if r.status_code != 200:
+            if r is None or r.status_code != 200:
                 return None
 
             # Get departement vigilance status
