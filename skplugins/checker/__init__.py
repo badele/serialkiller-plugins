@@ -11,8 +11,10 @@ __apiversion__ = '1.0'
 import os
 import sys
 import json
-import requests
 import time
+import logging
+import requests
+
 from collections import defaultdict
 
 
@@ -22,8 +24,34 @@ class checker(object):
 
         # Set parameters
         self._params = kwargs
+
+        # Create logger
+        self._params['logfile'] = '/tmp/%s.%s.log' % (self.__module__, self.__class__.__name__)
+        self.log = logging.getLogger(self._params['logfile'])
+        formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
+        # Configure filehandler
+        file_handler = logging.FileHandler(self._params['logfile'])
+        file_handler.setFormatter(formatter)
+        self.log.addHandler(file_handler)
+        self.log.setLevel(logging.DEBUG)
+
+        # Init result dict
         self._results = defaultdict(lambda: None)
         self._types = dict()
+
+    def __del__(self):
+        # Release log handlers
+        handlers = self.log.handlers[:]
+        for handler in handlers:
+            handler.close()
+            self.log.removeHandler(handler)
+
+    # Get dynamically property
+    def __getattr__(self, attr):
+        if attr in self._results:
+            return self._results[attr]
+        else:
+            return None
 
     @property
     def params(self):
@@ -37,11 +65,11 @@ class checker(object):
     @property
     def result(self):
         """Get Value"""
-        if  self._default:
+        if  'default' not in self.results:
             mess = "%s.%s" % (self.__class__, sys._getframe().f_code.co_name)
             raise NotImplementedError(mess)
         else:
-            return self.results[self._default]
+            return self.results[self.default]
 
     @property
     def results(self):
@@ -62,10 +90,11 @@ class checker(object):
 
     @property
     def type(self):
-        if 'result' not in self._types:
-            raise Exception("type not found for result")
+        return 'text'
+        if self.default not in self._types:
+            raise Exception("type not found for %s" % self.default)
 
-        return self._types['result']
+        return self._types[self.default]
 
     @property
     def types(self):

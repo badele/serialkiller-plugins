@@ -14,6 +14,7 @@ import json
 import requests
 import time
 import threading
+import logging
 
 from collections import defaultdict
 
@@ -28,8 +29,27 @@ class daemon(threading.Thread):
         self._params = kwargs
         self._params['threadwait'] = 2
 
+        # Create logger
+        self._params['logfile'] = '/tmp/%s.%s.log' % (self.__module__, self.__class__.__name__)
+        self.log = logging.getLogger(self._params['logfile'])
+        formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
+        # Configure filehandler
+        file_handler = logging.FileHandler(self._params['logfile'])
+        file_handler.setFormatter(formatter)
+        self.log.addHandler(file_handler)
+        self.log.setLevel(logging.DEBUG)
+
+        # Init result dict
         self._results = defaultdict(lambda: None)
         self._types = dict()
+
+    # Get dynamically property
+    def __getattr__(self, attr):
+        if attr in self._results:
+            return self._results[attr]
+        else:
+            return None
+
 
     @property
     def params(self):
