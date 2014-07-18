@@ -67,7 +67,7 @@ class sunshine(checker):
 
         # Sun position
         self.results['sun_alt'] = int(sun.alt * 180 / math.pi)
-        self.results['sun_ez'] = int(sun.az * 180 / math.pi)
+        self.results['sun_az'] = int(sun.az * 180 / math.pi)
 
         # Calc transit sun
         nexttransit = obs.next_transit(sun)
