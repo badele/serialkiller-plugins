@@ -23,7 +23,7 @@ class skmetar(checker):
     def __init__(self, **kwargs):
         super(skmetar, self).__init__(**kwargs)
         self._types = {
-            'result': 'skfloat',
+            'temp': 'skfloat',
             'dewpt': 'skfloat',
             'pressure': 'skfloat',
             'wind_speed': 'skfloat',
@@ -68,8 +68,6 @@ class skmetar(checker):
         )
 
         if not m:
-            # Not Metar found
-            self.results['result'] = None
             return
 
         # Decode metar informations
@@ -78,7 +76,7 @@ class skmetar(checker):
 
         # Get temperature
         if decode.temp:
-            self.results['result'] = decode.temp.value()
+            self.results['temp'] = decode.temp.value()
 
         # Get dewpt temperature
         if decode.dewpt:

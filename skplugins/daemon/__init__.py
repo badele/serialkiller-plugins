@@ -60,13 +60,13 @@ class daemon(threading.Thread):
     def params(self, value):
         self._params = value
 
-    @property
-    def result(self):
-        """Get Value"""
-        if 'result' not in self.results:
-            return None
-        else:
-            return self.results['result']
+    # @property
+    # def result(self):
+    #     """Get Value"""
+    #     if 'result' not in self.results:
+    #         return None
+    #     else:
+    #         return self.results['result']
 
     @property
     def results(self):

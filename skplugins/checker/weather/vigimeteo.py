@@ -16,7 +16,7 @@ class vigimeteo(checker):
     def __init__(self, **kwargs):
         super(vigimeteo, self).__init__(**kwargs)
         self._types = {
-            'result': 'byte',
+            'vigimeteo': 'byte',
         }
         self.check()
 
@@ -58,12 +58,12 @@ class vigimeteo(checker):
             # Check vigilance
             m = re.search('<datavigilance couleur="([0-9])"', depalert)
             if m:
-                self.results['result'] = int(m.group(1))
+                self.results['vigimeteo'] = int(m.group(1))
 
             # Check crue
             m = re.search('<crue valeur="([0-9])"', depalert)
             if m:
-                self.results['crue'] = int(m.group(1))
+                self.results['vigicrue'] = int(m.group(1))
 
             # Check risque
             m = re.search('<risque valeur="([0-9])"', depalert)
@@ -76,7 +76,6 @@ class vigimeteo(checker):
     def check(self):
         """Check if process running"""
         if 'dep' not in self.params:
-            self.results['result'] = None
             return
 
         self.checkVigimeteo(self.params['dep'])

@@ -12,7 +12,6 @@ class sunshine(checker):
     """Check if day or night"""
     def __init__(self, **kwargs):
         super(sunshine, self).__init__(**kwargs)
-        self.results['default'] = 'sunshine_idx'
         self._types = {
             self.default: 'byte',
         }
@@ -149,4 +148,4 @@ class sunshine(checker):
             # Day
             idx = 255
 
-        self.results[self.default] = idx
+        self.results['sunshine_idx'] = idx

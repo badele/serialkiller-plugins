@@ -16,7 +16,6 @@ class ping(checker):
     """Check if host reply a ICMP request"""
     def __init__(self, **kwargs):
         super(ping, self).__init__(**kwargs)
-        self.results['default'] = 'result'
         self._types = {
             self.default: 'boolean',
         }
@@ -47,14 +46,12 @@ class ping(checker):
                 'destination': r.destination,
                 'destination_ip': r.destination_ip,
                 'result': 255 - (r.ret_code * 255),
-                'default': 'result'
             }
 
         except:
             self.log.exception('error in pyping.ping function')
             self._results = {
                 'result': 0,
-                'default': 'result'
             }
 
 

@@ -62,14 +62,14 @@ class checker(object):
     def params(self, value):
         self._params = value
 
-    @property
-    def result(self):
-        """Get Value"""
-        if  'default' not in self.results:
-            mess = "%s.%s" % (self.__class__, sys._getframe().f_code.co_name)
-            raise NotImplementedError(mess)
-        else:
-            return self.results[self.default]
+    # @property
+    # def result(self):
+    #     """Get Value"""
+    #     if  'default' not in self.results:
+    #         mess = "%s.%s" % (self.__class__, sys._getframe().f_code.co_name)
+    #         raise NotImplementedError(mess)
+    #     else:
+    #         return self.results[self.default]
 
     @property
     def results(self):
@@ -81,12 +81,12 @@ class checker(object):
         """Set Value"""
         self._results = value
 
-    @property
-    def default(self):
-        if 'default' not in self._results:
-            return None
-
-        return self._results['default']
+    # @property
+    # def default(self):
+    #     if 'default' not in self._results:
+    #         return None
+    #
+    #     return self._results['default']
 
     @property
     def type(self):
