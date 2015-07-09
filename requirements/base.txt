@@ -7,5 +7,4 @@ pyping==0.0.4
 pyserial==2.7
 
 # for weather/sunshine.py
-pyephem==3.7.5.2
-
+ephem==3.7.5.3
