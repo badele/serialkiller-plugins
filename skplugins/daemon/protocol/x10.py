@@ -86,7 +86,7 @@ class x10(daemon):
             try:
                 self.checkStatus()
                 #raise Exception('toto')
-            except Exception, err:
+            except Exception as err:
                 self.log.exception('Error in main run function: %s', err)
                 self.stop()
                 raise

@@ -106,10 +106,10 @@ def loadPlugin(args):
 def show(plugin, format):
     if format == 'key':
         for k,v in iter(sorted(plugin.results.iteritems())):
-            print "%s=%s" % (k,v)
+            print("%s=%s" % (k,v))
 
         for k,v in iter(sorted(plugin.params.iteritems())):
-            print "param_%s=%s" % (k,v)
+            print("param_%s=%s" % (k,v))
 
 
     if format == 'csv':
@@ -123,38 +123,38 @@ def show(plugin, format):
             i += 1
             header += k
             results += str(v)
-        print header
-        print results
+        print(header)
+        print(results)
 
     if format == 'json':
         # No need JSON class
         #print json.dumps(values, sort_keys=True, indent=4, separators=(',', ': '))
 
         # Header
-        print "{"
+        print("{")
 
         # Params
-        print '    "result": {'
+        print('    "result": {')
         i = 0
         for k,v in iter(sorted(plugin.results.iteritems())):
             if i < len(plugin.results) - 1:
-                print '        "%s": %s,' % (k,v)
+                print('        "%s": %s,' % (k,v))
             else:
-                print '        "%s": %s' % (k,v)
+                print('        "%s": %s' % (k,v))
             i += 1
-        print '    },'
+        print('    },')
 
         # Params
-        print '    "params": {'
+        print('    "params": {')
         i = 0
         for k,v in iter(sorted(plugin.params.iteritems())):
             if i < len(plugin.params) - 1:
-                print '        "%s": %s,' % (k,v)
+                print('        "%s": %s,' % (k,v))
             else:
-                print '        "%s": %s' % (k,v)
+                print('        "%s": %s' % (k,v))
             i += 1
-        print '    }'
-        print "}"
+        print('    }')
+        print("}")
 
 def main():
     # Parse arguments

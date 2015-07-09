@@ -87,7 +87,6 @@ class skmetar(checker):
             self.results['pressure'] = decode.press.value()
 
         # Visibility
-        print decode.vis
         if decode.vis:
             self.results['visibility'] = int(decode.vis.value())
 
