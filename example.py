@@ -4,9 +4,9 @@
 import os
 import time
 
-from skplugins.checker.weather.skmetar import skmetar
+#from skplugins.checker.weather.skmetar import skmetar
 from skplugins.checker.weather.sunshine import sunshine
-from skplugins.checker.weather.vigimeteo import vigimeteo
+#from skplugins.checker.weather.vigimeteo import vigimeteo
 
 maxlen = 20
 
