@@ -1,10 +1,11 @@
 requests==2.2.0
 
 # for network/ping.py
-# pyping==0.0.4
+pyping==0.0.4
 
 # for energy/teleinfo.py
-# pyserial==2.7
+pyserial==2.7
 
 # for weather/sunshine.py
-# pyephem==3.7.5.2
+pyephem==3.7.5.2
+
