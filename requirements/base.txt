@@ -1,4 +1,4 @@
-requests==2.2.0
+requests==2.20.0
 
 # for network/ping.py
 pyping==0.0.4
